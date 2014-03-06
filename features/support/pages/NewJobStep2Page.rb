@@ -14,6 +14,8 @@ class NewJobStep2Page
   select_list(:estimated_length, :id => "new_job_estimated_length")
   text_field(:start_date, :id => "new_job_start_date")
   button(:skills, identifier = {:class => "big_button", :index => 1})
+  div(:delete_language, :class => "ui-tag__delete_icon")
+  div(:error, :class => "error is-big is-new_job is-wide")
   @@timeout
 
   def set_timeout (timeout)
@@ -25,9 +27,24 @@ class NewJobStep2Page
     skills
   end
 
+  def check_remote
+    remote_element.when_visible(@@timeout)
+    select_remote
+  end
+
+  def check_onsite
+    onsite_element.when_visible(@@timeout)
+    select_onsite
+  end
+
   def check_mixed
     mixed_element.when_visible(@@timeout)
     select_mixed
+  end
+
+  def check_recruiting
+    recruiting_element.when_visible(@@timeout)
+    select_recruiting
   end
 
   def select_time_length_onsite
@@ -71,5 +88,11 @@ class NewJobStep2Page
     estimated_length_max_value = estimated_length_element.attribute("length").to_i - 2
     length = rand(0..estimated_length_max_value)
     estimated_length_element.select_value(length)
+  end
+
+  def click_delete_language
+    delete_language_element.when_visible(@@timeout)
+    delete_language_element.click
+    delete_language_element.when_not_visible(@@timeout)
   end
 end

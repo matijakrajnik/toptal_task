@@ -18,6 +18,7 @@ class NewJobStep3Page
   unordered_list(:storage_list, identifier = {:class => "js-autocomplete_wrap", :index => 6})
   text_field(:misc, :id => "job_9_skill_sets")
   unordered_list(:misc_list, identifier = {:class => "js-autocomplete_wrap", :index => 7})
+  span(:error, :class => "base_error__body")
   button(:confirmation, identifier = {:class => "big_button", :index => 2})
   @@timeout
 

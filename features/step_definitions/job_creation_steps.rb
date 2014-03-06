@@ -36,8 +36,14 @@ end
 
 And /^I check "(.+)" for work type$/ do |work_type|
   case work_type
+  when "Remote"
+    on(NewJobStep2Page).check_remote
+  when "Onsite"
+    on(NewJobStep2Page).check_onsite
   when "Mixed (Remote+Onsite)"
     on(NewJobStep2Page).check_mixed
+  when "Recruiting Only"
+    on(NewJobStep2Page).check_recruiting
   end
 end
 
@@ -149,8 +155,52 @@ And /^I check (.+) checkbox$/ do |checkbox|
   end
 end
 
+And /^I uncheck (.+) checkbox$/ do |checkbox|
+  case checkbox
+  when "review"
+    on(NewJobStep4Page).uncheck_review_box
+  when "notice"
+    on(NewJobStep4Page).uncheck_notice_box
+  when "deposit"
+    on(NewJobStep4Page).uncheck_deposit_box
+  end
+end
+
+And /^I delete English from spoken languages$/ do
+  on(NewJobStep2Page).click_delete_language
+end
+
 Then /^I should see message "(.+)"$/ do |message|
   on(NewJobStep5Page).complete_element.when_visible(@app['TIMEOUT'])
   on(NewJobStep5Page).complete.should eql message
 end
 
+Then /^I should see error message "(.+)" on step (\d) page$/ do |message, page|
+  case page
+  when 1
+    on(NewJobStep1Page).error_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep1Page).error.should eql message
+  when 2
+    on(NewJobStep2Page).error_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep2Page).error.should eql message
+  when 3
+    on(NewJobStep3Page).error_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep3Page).error.should eql message
+  when 4
+    on(NewJobStep4Page).error_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep4Page).error.should eql message
+  end
+end
+
+Then /^I should see (\d) error messages? "(.+)"$/ do |n, message|
+  case n
+  when 1
+    on(NewJobStep4Page).error_0_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep4Page).error_0.should eql message
+  when 2
+    on(NewJobStep4Page).error_0_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep4Page).error_0.should eql message
+    on(NewJobStep4Page).error_1_element.when_visible(@app['TIMEOUT'])
+    on(NewJobStep4Page).error_1.should eql message
+  end
+end

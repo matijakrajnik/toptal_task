@@ -3,6 +3,7 @@ class NewJobStep1Page
 
   text_field(:title, :id => "new_job_title")
   text_area(:description, :id => "new_job_description")
+  div(:error, :class => "error is-big is-new_job")
   button(:details, identifier = {:class => "big_button", :index => 0})
   @@timeout
 
