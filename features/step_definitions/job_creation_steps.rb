@@ -76,6 +76,18 @@ And /^I select random estimated length$/ do
   on(NewJobStep2Page).select_estimated_length
 end
 
+And /^I delete English from spoken languages$/ do
+  on(NewJobStep2Page).click_delete_language
+end
+
+And /^I type "(.+)" in spoken languages field$/ do |language|
+  on(NewJobStep2Page).type_spoken_language(language)
+end
+
+And /^I select "(.+)" from spoken languages dropdown menu$/ do |language|
+  on(NewJobStep2Page).select_spoken_language(language)
+end
+
 And /^I type "(.+)" in languages field$/ do |language|
   on(NewJobStep3Page).type_language(language)
 end
@@ -164,10 +176,6 @@ And /^I uncheck (.+) checkbox$/ do |checkbox|
   when "deposit"
     on(NewJobStep4Page).uncheck_deposit_box
   end
-end
-
-And /^I delete English from spoken languages$/ do
-  on(NewJobStep2Page).click_delete_language
 end
 
 Then /^I should see message "(.+)"$/ do |message|

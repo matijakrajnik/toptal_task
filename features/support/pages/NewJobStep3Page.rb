@@ -76,14 +76,14 @@ class NewJobStep3Page
   end
 
   def select_from_dropdown (list_element, pattern)
-    i = 0
     sleep(2)
-    until list_element[i].nil?
+    for i in 0...list_element.items
       if list_element[i].attribute("data-value").include? "\"label\":\"" + pattern + "\""
         list_element[i].click
         break
       end
     end
+
   end
 
   def select_language (language)

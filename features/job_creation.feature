@@ -16,6 +16,9 @@ Feature: Creating a job as a company user
     And I select "2 hours" for hours of overlap
     And I set desired start date to today's date
     And I select random estimated length
+    And I delete English from spoken languages
+    And I type "Spanish" in spoken languages field
+    And I select "Spanish" from spoken languages dropdown menu
     And I click "Next - Required Skills" button on new job page
     And I type "Ruby" in languages field
     And I select "Ruby" from languages dropdown menu

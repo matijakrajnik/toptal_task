@@ -13,9 +13,11 @@ class NewJobStep2Page
   select_list(:overlap, :id => "new_job_hours_overlap")
   select_list(:estimated_length, :id => "new_job_estimated_length")
   text_field(:start_date, :id => "new_job_start_date")
+  text_field(:spoken_language, :id => "new_job_languages")
   button(:skills, identifier = {:class => "big_button", :index => 1})
   div(:delete_language, :class => "ui-tag__delete_icon")
   div(:error, :class => "error is-big is-new_job is-wide")
+  unordered_list(:spoken_languages_list, identifier = {:class => "js-autocomplete_wrap", :index => 8})
   @@timeout
 
   def set_timeout (timeout)
@@ -82,6 +84,21 @@ class NewJobStep2Page
     start_date_element.when_visible(@@timeout)
     self.start_date = date
     start_date_element.send_keys(:tab)
+  end
+
+  def type_spoken_language (language)
+    spoken_language_element.when_visible(@@timeout)
+    self.spoken_language = language
+  end
+
+  def select_spoken_language (language)
+    sleep(2)
+    for i in 0...spoken_languages_list_element.items
+      if spoken_languages_list_element[i].attribute("data-value").include? "\"name\":\"" + language + "\""
+        spoken_languages_list_element[i].click
+        break
+      end
+    end
   end
 
   def select_estimated_length
