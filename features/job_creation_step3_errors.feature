@@ -7,7 +7,7 @@ Feature: Leaving necessary fields empty in job creation step 3 should produce er
     And I type "Description" in description text field
     And I click "Next - Job Details" button on new job page
     And I check "Onsite" for work type
-    And I set desired start date to today's date
+    And I set desired start date to today
     And I select "full_time" for desired commitment
     And I select random estimated length
     And I click "Next - Required Skills" button on new job page

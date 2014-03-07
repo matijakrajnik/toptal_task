@@ -67,9 +67,22 @@ And /^I select "(.+)" for hours of overlap$/ do |overlap|
   on(NewJobStep2Page).select_hours_of_overlap(overlap)
 end
 
-And /^I set desired start date to today's date$/ do
-  today = Date.today.strftime("%Y-%m-%d")
-  on(NewJobStep2Page).set_start_date(today)
+And /^I set desired start date to (.+)$/ do |day|
+  case day
+  when "yesterday"
+    date = (Date.today-1).strftime("%Y-%m-%d")
+    on(NewJobStep2Page).set_start_date(date)
+  when "today"
+    date = Date.today.strftime("%Y-%m-%d")
+    on(NewJobStep2Page).set_start_date(date)
+  when "tomorrow"
+    date = (Date.today+1).strftime("%Y-%m-%d")
+    on(NewJobStep2Page).set_start_date(date)
+  end
+end
+
+And /^I set invalid value "(.+)" for desired start date$/ do |date|
+  on(NewJobStep2Page).set_start_date(date)
 end
 
 And /^I select random estimated length$/ do
