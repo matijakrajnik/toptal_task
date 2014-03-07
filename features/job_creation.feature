@@ -42,7 +42,24 @@ Feature: Creating a job as a company user
     And I check notice checkbox
     And I check deposit checkbox
     And I click "Submit and See What's Next" button on new job page
-    Then I should see message "Congratulations — you've just added a new job!"
+    And I click "Jump to Job" link
+    Then I should be on page with created job details
+    And I should see job with title "Title with special characters !@#$%^&*()_+=-"
+    And I should see description "Description with special characters !@#$%^&*()_+=-"
+    And I should see Mixed work type with selected random time length onsite
+    And I should see selected commitment
+    And I should see selected time zone with selected hours of overlap
+    And I should see selected <date> for start date
+    And I should see selected random estimated length
+    And I should see "Spanish" in spoken languages section
+    And I should see "C#" in language section with selected <rating>
+    And I should see "Rails" in framework section
+    And I should see "D3.js" in libraries section
+    And I should see "Dev-C++" in tools section
+    And I should see "REST" in paradigms section
+    And I should see "Win32" in platforms section
+    And I should see "MySQL" in storage section
+    And I should see "Game Design" in misc section
 
   Examples:
 

@@ -17,6 +17,7 @@ class NewJobStep4Page
   def press_submit
     submit_element.when_visible(@@timeout)
     submit
+    sleep(2)
   end
 
   def check_review_box

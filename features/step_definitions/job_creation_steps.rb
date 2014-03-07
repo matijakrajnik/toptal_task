@@ -225,3 +225,100 @@ Then /^I should see (\d) error messages? "(.+)"$/ do |n, message|
     on(NewJobStep4Page).error_1.should eql message
   end
 end
+
+And /^I click "Jump to Job" link$/ do
+  on(CreatedJobPage).set_timeout(@app['TIMEOUT'])
+  @page_url = on(NewJobStep5Page).jump_to_job_element.attribute("href")
+  visit(CreatedJobPage, using_params: {path: @page_url})
+end
+
+Then /^I should be on page with created job details$/ do
+  @browser.url.should eql @page_url
+end
+
+And /^I should see job with title "(.+)"$/ do |title|
+  on(CreatedJobPage).title_element.when_visible(@app['TIMEOUT'])
+  on(CreatedJobPage).title.should eql title
+end
+
+And /^I should see description "(.+)"$/ do |description|
+  on(CreatedJobPage).description_element.when_visible(@app['TIMEOUT'])
+  on(CreatedJobPage).description.should eql description
+end
+
+And /^I should see Mixed work type with selected random time length onsite$/ do
+  time_onsite = on(NewJobStep2Page).get_time_onsite_option
+  on(CreatedJobPage).time_onsite.should eql ("Mixed (" + time_onsite + " on-site)")
+end
+
+And /^I should see selected commitment$/ do
+  commitment = on(NewJobStep2Page).get_commitment_option.split[0]
+  on(CreatedJobPage).commitment.should eql commitment
+end
+
+And /^I should see selected time zone with selected hours of overlap$/ do
+  time_zone = on(NewJobStep2Page).get_time_zone_option
+  hours_of_overlap = on(NewJobStep2Page).get_hours_of_overlap_option
+  time_zone = time_zone + ", min " + hours_of_overlap + " overlap" unless hours_of_overlap == ""
+  on(CreatedJobPage).time_zone.should eql time_zone
+end
+
+And /^I should see selected (.+) for start date$/ do |day|
+  case day
+  when "yesterday"
+    date = (Date.today-1).strftime("%B %-d, %Y")
+  when "today"
+    date = Date.today.strftime("%B %-d, %Y")
+  when "tomorrow"
+    date = (Date.today+1).strftime("%B %-d, %Y")
+  end
+  on(CreatedJobPage).start_date.should eql date
+end
+
+And /^I should see selected random estimated length$/ do
+  on(CreatedJobPage).estimated_length.should eql on(NewJobStep2Page).get_estimated_length_option
+end
+
+And /^I should see "(.+)" in spoken languages section$/ do |language|
+  on(CreatedJobPage).spoken_languages.should eql language
+end
+
+And /^I should see "(.+)" in language section with selected (.+)$/ do |language, rating|
+  case rating
+  when "Competent"
+    on(CreatedJobPage).competent.should eql language
+  when "Strong"
+    on(CreatedJobPage).strong.should eql language
+  when "Expert"
+    on(CreatedJobPage).expert.should eql language
+  end
+end
+
+And /^I should see "(.+)" in framework section$/ do |framework|
+  on(CreatedJobPage).frameworks.should eql framework
+end
+
+And /^I should see "(.+)" in libraries section$/ do |librarie|
+  on(CreatedJobPage).libraries.should eql librarie
+end
+
+And /^I should see "(.+)" in tools section$/ do |tool|
+  on(CreatedJobPage).tools.should eql tool
+end
+
+And /^I should see "(.+)" in paradigms section$/ do |paradigm|
+  on(CreatedJobPage).paradigms.should eql paradigm
+end
+
+And /^I should see "(.+)" in platforms section$/ do |platform|
+  on(CreatedJobPage).platforms.should eql platform
+end
+
+And /^I should see "(.+)" in storage section$/ do |storage|
+  on(CreatedJobPage).storage.should eql storage
+end
+
+And /^I should see "(.+)" in misc section$/ do |misc|
+  on(CreatedJobPage).misc.should eql misc
+end
+

@@ -7,4 +7,3 @@ gem "cucumber"
 gem "rspec"
 gem "page-object"
 gem 'pairwise'
-

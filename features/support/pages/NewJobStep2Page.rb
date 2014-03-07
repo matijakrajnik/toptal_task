@@ -19,6 +19,11 @@ class NewJobStep2Page
   div(:error, :class => "error is-big is-new_job is-wide")
   unordered_list(:spoken_languages_list, identifier = {:class => "js-autocomplete_wrap", :index => 8})
   @@timeout
+  @@time_onsite_option
+  @@commitment_option
+  @@estimated_length_option
+  @@time_zone_option
+  @@hours_of_overlap_option = ""
 
   def set_timeout (timeout)
     @@timeout = timeout
@@ -49,14 +54,19 @@ class NewJobStep2Page
     select_recruiting
   end
 
+  def generate_random_value (element)
+    max_value = element.attribute("length").to_i - 2
+    value = rand (0..max_value)
+    return value
+  end
   def select_time_length_onsite
     time_length_onsite_max_value = time_length_onsite_element.attribute("length").to_i - 2
     time = rand(0..time_length_onsite_max_value)
-    time_length_onsite_element.select_value(time)
+    @@time_onsite_option = time_length_onsite_element.select_value(time)
   end
 
   def select_desired_commitment (commitment)
-    commitment_element.select_value(commitment)
+    @@commitment_option = commitment_element.select_value(commitment)
   end
 
   def set_time_zone_preference (preference)
@@ -70,13 +80,13 @@ class NewJobStep2Page
   end
 
   def select_time_zone (time_zone)
-    time_zone_element.select_value(time_zone)
+    @@time_zone_option = time_zone_element.select_value(time_zone)
   end
 
   def select_hours_of_overlap (overlap)
     unless overlap.casecmp("No preference") == 0
       hours = overlap.split[0]
-      overlap_element.select_value(hours)
+      @@hours_of_overlap_option = overlap_element.select_value(hours)
     end
   end
 
@@ -104,12 +114,32 @@ class NewJobStep2Page
   def select_estimated_length
     estimated_length_max_value = estimated_length_element.attribute("length").to_i - 2
     length = rand(0..estimated_length_max_value)
-    estimated_length_element.select_value(length)
+    @@estimated_length_option = estimated_length_element.select_value(length)
   end
 
   def click_delete_language
     delete_language_element.when_visible(@@timeout)
     delete_language_element.click
     delete_language_element.when_not_visible(@@timeout)
+  end
+
+  def get_time_onsite_option
+    return @@time_onsite_option
+  end
+
+  def get_estimated_length_option
+    return @@estimated_length_option
+  end
+
+  def get_commitment_option
+    return @@commitment_option
+  end
+
+  def get_time_zone_option
+    return @@time_zone_option
+  end
+
+  def get_hours_of_overlap_option
+    return @@hours_of_overlap_option
   end
 end
