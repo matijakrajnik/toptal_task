@@ -28,8 +28,17 @@ To run browser tests in Chrome, you have to download latest [chromedriver](http:
 
 Prepare environment:
 
-TO run tests you will need to open config/application.yml file and edit it with valid username and password. SITE needs to remain in same format, just replace <user> and <password> with credentials for basic HTTP authentication. For EMAIL and PASSWORD sections you need to set valid account credentials for login. In BROWSER_LABEL section you can set desired browser (if left empty default will be Firefox). TIMEOUT is maximum number of seconds to wait for elements on page to become visible.
+To run tests you will need to open config/application.yml file and edit it with valid username and password. SITE needs to remain in same format, just replace <user> and <password> with credentials for basic HTTP authentication. For EMAIL and PASSWORD sections you need to set valid account credentials for login. In BROWSER_LABEL section you can set desired browser (if left empty default will be Firefox). TIMEOUT is maximum number of seconds to wait for elements on page to become visible.
 
 ## Runing tests
 
 To run a single test enter `cucumber features/job_creation.feature`.
+
+## Pairwise testing
+
+In config/inputs.yml file are some possible values for set of variables. You can add new variables or delete them. Also you can add new values or delete them. After updating config/inputs.yml file you need to generate a new table with all pairs again. To do that run
+
+    pairwise config/inputs.yml
+
+Replace existing table in features/job_creation.feature with a new one.
+
