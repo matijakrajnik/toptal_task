@@ -1,0 +1,6 @@
+commitment: [part_time, full_time, hourly]
+time zone: [Tijuana, Arizona, Santiago, Azores, Dublin, Zagreb, Helsinki, Moscow, Mumbai, Singapore, Tokyo, Sydney]
+hours of overlap: [1 hour, 3 hours, 6 hours, 9 hours, 12 hours]
+date: [yesterday, today, tomorrow]
+rating: [Competent, Strong, Expert]
+
