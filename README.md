@@ -50,6 +50,6 @@ Prepare environment:
 
 TO run tests you will need to open config/application.yml file and edit it with valid username and password. SITE needs to remain in same format, just replace <user> and <password> with credentials for basic HTTP authentication. For EMAIL and PASSWORD sections you need to set valid account credentials for login. In BROWSER_LABEL section you can set desired browser (if left empty default will be Firefox). TIMEOUT is maximum number of seconds to wait for elements on page to become visible.
 
-application.yml content:
+## Runing tests
 
 To run a single test enter `cucumber features/job_creation.feature`.
